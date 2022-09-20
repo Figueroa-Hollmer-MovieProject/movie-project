@@ -36,6 +36,29 @@ const deleteMovieObject = {
 }
 //End of Delete Function
 
+//Start of Post Function
+const postMovieFunction = () => {
+    fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
+        .then(result => result.json()).then(data => console.log(data))
+        .catch(err => console.log("There has been an error: " + err));
+}
+
+
+const hardCodedTestMovie = {
+    "title": "Test Movie",
+    "director": "Movie Director",
+    "genre": "Test Genre"
+}
+const postMovieObject = {
+    method: "POST",
+    headers: {
+        "Content-Type": "application/json"
+    },
+//    Hard coding in a post right now, later this will be a user input field.
+    body: JSON.stringify(hardCodedTestMovie)
+}
+//End of Post function
+
 
 //Start of convert to html function
 function convertToHTML() {
@@ -71,7 +94,10 @@ btnToDel.addEventListener("click", (e) => {
     deleteMovieFunction(7);
 });
 
-// btn.addEventListener("click", getMovieFunction);
+btnToPost.addEventListener("click", (e) => {
+    e.preventDefault();
+    postMovieFunction();
+});
 
 // btn.addEventListener("click", getMovieFunction);
 
