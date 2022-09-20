@@ -59,6 +59,27 @@ const postMovieObject = {
 }
 //End of Post function
 
+//Start of Patch function
+const patchMovieFunction = (id) => {
+    fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
+        .then(result => result.json()).then(data => console.log(data))
+        .catch(err => console.log("There has been an error: " + err));
+}
+
+const hardCodedPatchMovie = {
+    "title": "Patched Test Movie",
+    "director": "Patched Movie Director",
+}
+const patchMovieObject = {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json"
+    },
+//    Hard coding in a post right now, later this will be a user input field.
+    body: JSON.stringify(hardCodedPatchMovie)
+}
+//End of Patch function
+
 
 //Start of convert to html function
 function convertToHTML() {
@@ -99,7 +120,10 @@ btnToPost.addEventListener("click", (e) => {
     postMovieFunction();
 });
 
-// btn.addEventListener("click", getMovieFunction);
+btnToPatch.addEventListener("click", (e) => {
+    e.preventDefault();
+    patchMovieFunction(293);
+});
 
 
 
