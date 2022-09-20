@@ -1,6 +1,6 @@
 "use strict";
 
-// GET Function
+// Start of GET Function
 const getMovieFunction = () => {
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
@@ -14,8 +14,9 @@ const getMovieObject = {
         "Content-Type": "application/json"
     }
 };
+// End of GET Function
 
-// Delete Function
+// Start of Delete Function
 const deleteMovieFunction = (id) => {
 
     if (typeof id !== "number") {
@@ -33,7 +34,29 @@ const deleteMovieObject = {
         "Content-Type": "application/json"
     }
 }
+//End of Delete Function
 
+
+//Start of convert to html function
+function convertToHTML() {
+    let html = "";
+    html += `<div class="card">
+        <img class="card-img-top" alt="PUT IMAGE HERE">
+        <div class="card-body">
+        <h5 class="card-title">Movie Title</h5>
+        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur deleniti deserunt eos officia placeat quis? Accusantium aperiam deserunt dolores esse ipsum iure possimus tenetur velit! Quibusdam ut vero voluptas?</p>
+        </div>`
+    return html;
+}
+//End of convert to html function
+
+//Start of send to HTML function
+function sendToHTML(data) {
+    //...
+    //...
+    //...
+}
+//End of send to HTML function
 
 
 let btn = document.getElementById("btn-to-show");
@@ -45,12 +68,23 @@ btn.addEventListener("click", getMovieFunction);
 
 btnToDel.addEventListener("click", (e) => {
     e.preventDefault();
-    deleteMovieFunction(263);
+    deleteMovieFunction(7);
 });
 
 // btn.addEventListener("click", getMovieFunction);
 
 // btn.addEventListener("click", getMovieFunction);
+
+
+
+
+
+
+
+
+
+
+
 
 
 
