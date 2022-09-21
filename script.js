@@ -18,10 +18,6 @@ const getMovieObject = {
 
 // Start of Delete Function
 const deleteMovieFunction = (id) => {
-
-    if (typeof id !== "number") {
-        console.log("Please input a valid number...");
-    }
     fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, deleteMovieObject)
         .then(resp => resp.json())
         .then(data => console.log(data))
@@ -101,7 +97,7 @@ function convertToHTML(data) {
         html += `<div class="card">
                     <img class="card-img-top" alt="PUT IMAGE HERE">
                     <div class="card-body">
-                        <h5 class="card-title">Hello</h5>
+                        <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">World</p>
                     </div>
                 </div>`
@@ -126,12 +122,14 @@ let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
 let movies = document.getElementById("movies");
 let btnShowMovies = document.getElementById("btn-to-show-movies");
+let deleteID = document.getElementById("deleteInput")
 
 btn.addEventListener("click", getMovieFunction);
 
 btnToDel.addEventListener("click", (e) => {
     e.preventDefault();
-    deleteMovieFunction(7);
+    deleteMovieFunction(deleteID.value);
+
 });
 
 btnToPost.addEventListener("click", (e) => {
