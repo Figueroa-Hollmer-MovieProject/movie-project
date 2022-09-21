@@ -41,7 +41,10 @@ const displayMovies = () => {
                 //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
                         fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
-                            .then(result => result.json()).then(data => console.log(data))
+                            .then(result => result.json()).then(data => {
+                                displayMovies();
+                                return console.log(data);
+                        })
                             .catch(err => console.log("There has been an error: " + err));
                     }
 
@@ -60,7 +63,6 @@ const displayMovies = () => {
                         body: JSON.stringify(userInputPatchValue)
                     }
                     patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
-                    displayMovies();
                     // console.log(button.parentElement.parentElement.children[0].innerHTML);
                 });
             }
@@ -153,7 +155,10 @@ btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
     const postMovieFunction = () => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
-            .then(result => result.json()).then(data => console.log(data))
+            .then(result => result.json()).then(data => {
+                displayMovies();
+                return console.log(data)
+        })
             .catch(err => console.log("There has been an error: " + err));
     }
     let postMovieTitle = document.getElementById("add-movie-title").value;
@@ -175,7 +180,6 @@ btnToPost.addEventListener("click", (e) => {
         body: JSON.stringify(userEnteredMovie)
     }
     postMovieFunction();
-    displayMovies();
 });
 //End of post functionality
 
