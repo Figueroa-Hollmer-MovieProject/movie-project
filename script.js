@@ -33,9 +33,6 @@ const deleteMovieObject = {
 //End of Delete Function
 
 
-
-
-
 //Start of Patch function
 // const patchMovieFunction = (id) => {
 //     fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
@@ -67,7 +64,6 @@ const displayMovies = () => {
 
             //This is the event listener to edit movies
             let editButtons = document.getElementsByClassName("edit-btn");
-            // console.log(editBtn[1])
 
             for (let button of editButtons) {
                 //Start of red edit button event listener
@@ -81,7 +77,7 @@ const displayMovies = () => {
             let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
-                //  INSIDE OF HERE IS GOING TO BE THE PATCH FUNCTION
+                //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
                         fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
                             .then(result => result.json()).then(data => console.log(data))
@@ -104,15 +100,37 @@ const displayMovies = () => {
                     }
                     patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
                     displayMovies();
-
-
-
-                    console.log(button.parentElement.parentElement.children[0].innerHTML);
-                })
+                    // console.log(button.parentElement.parentElement.children[0].innerHTML);
+                });
             }
             // End of for loop to initalize confirm edit button event listeners
 
-
+            // Start of delete functionality
+            let deleteButtons = document.getElementsByClassName("delete-btn");
+            for (let button of deleteButtons) {
+                button.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    let currentBtnId = button.parentElement.parentElement.children[0].innerHTML;
+                    console.log(currentBtnId);
+                    const deleteMovieFunction = (id) => {
+                        fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, deleteMovieObject)
+                            .then(resp => resp.json())
+                            .then(data => {
+                                displayMovies();
+                                return console.log(data);
+                            })
+                            .catch(err => console.log(err));
+                    }
+                    const deleteMovieObject = {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        }
+                    }
+                    deleteMovieFunction(currentBtnId);
+                });
+            }
+            // End of delete functionality
         })
         .catch(err => console.log(err));
 }
@@ -133,10 +151,10 @@ function convertToHTML(data) {
                         <h5 class="card-title">${data[i].director}</h5>
                         <p class="card-text">${data[i].rating}</p>
                         <p class="card-text">${data[i].genre}</p>
-                        <button class="edit-btn btn bg-danger text-white" type="button">Edit Movie</button>
+                        <button class="edit-btn btn bg-primary text-white" type="button">Edit Movie</button>
+                        <button class="delete-btn btn bg-danger text-white" type="button">Delete Movie</button>
                     </div>
 <!--                    Start of edit form                  -->
-
                     <form class="edit-form hidden">
                         <p>Edit This Movie</p>
                         <label for="edit-movie-title">Title: </label>
@@ -152,8 +170,7 @@ function convertToHTML(data) {
                         <input name="edit-movie-genre" id="edit-movie-genre" type="text" placeholder="${data[i].genre}">
                         <br>
                         <button type="button" class="btn-to-confirm-edit">Edit</button>
-                    </form>
-                    
+                    </form>  
 <!--                      End of edit form                   -->
                 </div>`
 
@@ -205,11 +222,6 @@ btnToPost.addEventListener("click", (e) => {
     }
     postMovieFunction();
     displayMovies();
-});
-
-btnToPatch.addEventListener("click", (e) => {
-    e.preventDefault();
-    patchMovieFunction(293);
 });
 
 btnShowMovies.addEventListener("click", (e) => {
