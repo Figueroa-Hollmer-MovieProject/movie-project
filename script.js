@@ -44,7 +44,7 @@ const postMovieFunction = () => {
 }
 
 
-const hardCodedTestMovie = {
+const hardCodedTestMovie = { // For testing purposes.
     "title": "Test Movie",
     "director": "Movie Director",
     "genre": "Test Genre"
@@ -82,14 +82,17 @@ const patchMovieObject = {
 
 
 //Start of convert to html function
-function convertToHTML() {
+function convertToHTML(data) {
     let html = "";
-    html += `<div class="card">
-        <img class="card-img-top" alt="PUT IMAGE HERE">
-        <div class="card-body">
-        <h5 class="card-title">Movie Title</h5>
-        <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aspernatur deleniti deserunt eos officia placeat quis? Accusantium aperiam deserunt dolores esse ipsum iure possimus tenetur velit! Quibusdam ut vero voluptas?</p>
-        </div>`
+    for (let i = 0; i < data.length; i++) {
+        html += `<div class="card">
+                    <img class="card-img-top" alt="PUT IMAGE HERE">
+                    <div class="card-body">
+                        <h5 class="card-title">${data.title}</h5>
+                        <p class="card-text">${data.rating}</p>
+                    </div>
+                </div>`
+    }
     return html;
 }
 //End of convert to html function
@@ -107,6 +110,7 @@ let btn = document.getElementById("btn-to-show");
 let btnToDel = document.getElementById("btn-to-delete");
 let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
+let movies = document.getElementById("movies");
 
 btn.addEventListener("click", getMovieFunction);
 
