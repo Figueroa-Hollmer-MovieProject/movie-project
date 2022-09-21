@@ -88,38 +88,26 @@ const displayMovies = () => {
             for (let button of deleteButtons) {
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
-
                     let currentBtnId = button.parentElement.parentElement.children[0].innerHTML;
                     console.log(currentBtnId);
-
                     const deleteMovieFunction = (id) => {
                         fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, deleteMovieObject)
                             .then(resp => resp.json())
-                            .then(data => console.log(data))
+                            .then(data => {
+                                displayMovies();
+                                return console.log(data);
+                            })
                             .catch(err => console.log(err));
                     }
-
                     const deleteMovieObject = {
                         method: "DELETE",
                         headers: {
                             "Content-Type": "application/json"
                         }
                     }
-
                     deleteMovieFunction(currentBtnId);
-                    setTimeout(displayMovies, 1000);
                 });
             }
-
-
-
-
-
-
-
-
-
-
             // End of delete functionality
         })
         .catch(err => console.log(err));
