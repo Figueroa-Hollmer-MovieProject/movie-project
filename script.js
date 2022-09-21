@@ -34,25 +34,31 @@ const deleteMovieObject = {
 
 
 
-//Start of Patch function
-const patchMovieFunction = (id) => {
-    fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
-        .then(result => result.json()).then(data => console.log(data))
-        .catch(err => console.log("There has been an error: " + err));
-}
 
-const hardCodedPatchMovie = {
-    "title": "Patched Test Movie",
-    "director": "Patched Movie Director",
-}
-const patchMovieObject = {
-    method: "PATCH",
-    headers: {
-        "Content-Type": "application/json"
-    },
-//    Hard coding in a post right now, later this will be a user input field.
-    body: JSON.stringify(hardCodedPatchMovie)
-}
+
+//Start of Patch function
+// const patchMovieFunction = (id) => {
+//     fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
+//         .then(result => result.json()).then(data => console.log(data))
+//         .catch(err => console.log("There has been an error: " + err));
+// }
+//
+// const hardCodedPatchMovie = {
+//     "title": "Patched Test Movie",
+//     "director": "Patched Movie Director",
+// }
+// const patchMovieObject = {
+//     method: "PATCH",
+//     headers: {
+//         "Content-Type": "application/json"
+//     },
+// //    Hard coding in a post right now, later this will be a user input field.
+//     body: JSON.stringify(hardCodedPatchMovie)
+// }
+//
+
+
+
 //End of Patch function
 const displayMovies = () => {
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
@@ -60,6 +66,48 @@ const displayMovies = () => {
         .then(data => {
             let moviesToDisplay = convertToHTML(data);
             movies.innerHTML = moviesToDisplay;
+
+            //This is the event listener to edit movies
+            let editButtons = document.getElementsByClassName("edit-btn");
+            // console.log(editBtn[1])
+
+            for (let button of editButtons) {
+
+                //Start of event listener
+                button.addEventListener("click", () => {
+                    console.log(button);
+
+                    button.parentElement.nextElementSibling.classList.toggle("hidden");
+
+
+
+
+                    const patchMovieFunction = (id) => {
+                        fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
+                            .then(result => result.json()).then(data => console.log(data))
+                            .catch(err => console.log("There has been an error: " + err));
+                    }
+
+                    const hardCodedPatchMovie = {
+                        "title": "Patched Test Movie",
+                        "director": "Patched Movie Director",
+                    }
+                    const patchMovieObject = {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+//    Hard coding in a post right now, later this will be a user input field.
+                        body: JSON.stringify(hardCodedPatchMovie)
+                    }
+
+                })
+            //    End of event listener
+
+
+
+            }
+
         })
         .catch(err => console.log(err));
 }
@@ -79,9 +127,30 @@ function convertToHTML(data) {
                         <h5 class="card-title">${data[i].director}</h5>
                         <p class="card-text">${data[i].rating}</p>
                         <p class="card-text">${data[i].genre}</p>
-                        <button class="edit-btn btn bg-danger text-white" type="button">Edit</button>
+                        <button class="edit-btn btn bg-danger text-white" type="button">Edit Movie</button>
                     </div>
+<!--                    Start of edit form                  -->
+
+                    <form class="edit-form hidden">
+                        <p>Edit This Movie</p>
+                        <label for="edit-movie-title">Title: </label>
+                        <input name="edit-movie-title" id="edit-movie-title" type="text" placeholder="${data[i].title}">
+                        <br>
+                        <label for="edit-movie-director">Director: </label>
+                        <input name="edit-movie-director" id="edit-movie-director" type="text" placeholder="${data[i].director}">
+                        <br>
+                        <label for="edit-movie-rating">Rating: </label>
+                        <input name="edit-movie-rating" id="edit-movie-rating" type="text" placeholder="${data[i].rating}">
+                        <br>
+                        <label for="edit-movie-genre">Genre: </label>
+                        <input name="edit-movie-genre" id="edit-movie-genre" type="text" placeholder="${data[i].genre}">
+                        <br>
+                        <button type="button" id="btn-to-post">Post</button>
+                    </form>
+                    
+<!--                      End of edit form                   -->
                 </div>`
+
     }
     return html;
 }
