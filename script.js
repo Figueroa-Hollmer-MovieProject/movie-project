@@ -32,34 +32,7 @@ const deleteMovieObject = {
 }
 //End of Delete Function
 
-//Start of Post Function
-const postMovieFunction = () => {
-    fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
-        .then(result => result.json()).then(data => console.log(data))
-        .catch(err => console.log("There has been an error: " + err));
-}
 
-// let postForm = document.getElementById("addMoviesForm").elements
-let postMovieTitle = document.getElementById("add-movie-title");
-let postMovieDirector = document.getElementById("add-movie-director");
-let postMovieRating = document.getElementById("add-movie-rating");
-let postMovieGenre = document.getElementById("add-movie-genre");
-
-
-const userEnteredMovie = { // For testing purposes.
-    "title": postMovieTitle,
-    "director": postMovieDirector,
-    "genre": postMovieGenre,
-    "rating": postMovieRating
-}
-const postMovieObject = {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify(userEnteredMovie)
-}
-//End of Post function
 
 //Start of Patch function
 const patchMovieFunction = (id) => {
@@ -140,11 +113,41 @@ btnToDel.addEventListener("click", (e) => {
 
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
-    // postMovieFunction();
-    console.log(postMovieTitle.value)
-    console.log(postMovieDirector.value)
-    console.log(postMovieRating.value)
-    console.log(postMovieGenre.value)
+
+    //Start of Post Function
+    const postMovieFunction = () => {
+        fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
+            .then(result => result.json()).then(data => console.log(data))
+            .catch(err => console.log("There has been an error: " + err));
+    }
+
+// let postForm = document.getElementById("addMoviesForm").elements
+    let postMovieTitle = document.getElementById("add-movie-title").value;
+    let postMovieDirector = document.getElementById("add-movie-director").value;
+    let postMovieRating = document.getElementById("add-movie-rating").value;
+    let postMovieGenre = document.getElementById("add-movie-genre").value;
+
+
+    const userEnteredMovie = { // For testing purposes.
+        "title": postMovieTitle,
+        "director": postMovieDirector,
+        "genre": postMovieGenre,
+        "rating": postMovieRating
+    }
+    const postMovieObject = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userEnteredMovie)
+    }
+//End of Post function
+
+    postMovieFunction();
+    console.log(postMovieTitle)
+    console.log(postMovieDirector)
+    console.log(postMovieRating)
+    console.log(postMovieGenre)
 });
 
 btnToPatch.addEventListener("click", (e) => {
