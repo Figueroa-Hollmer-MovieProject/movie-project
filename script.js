@@ -39,19 +39,25 @@ const postMovieFunction = () => {
         .catch(err => console.log("There has been an error: " + err));
 }
 
+// let postForm = document.getElementById("addMoviesForm").elements
+let postMovieTitle = document.getElementById("add-movie-title");
+let postMovieDirector = document.getElementById("add-movie-director");
+let postMovieRating = document.getElementById("add-movie-rating");
+let postMovieGenre = document.getElementById("add-movie-genre");
 
-const hardCodedTestMovie = { // For testing purposes.
-    "title": "Test Movie",
-    "director": "Movie Director",
-    "genre": "Test Genre"
+
+const userEnteredMovie = { // For testing purposes.
+    "title": postMovieTitle,
+    "director": postMovieDirector,
+    "genre": postMovieGenre,
+    "rating": postMovieRating
 }
 const postMovieObject = {
     method: "POST",
     headers: {
         "Content-Type": "application/json"
     },
-//    Hard coding in a post right now, later this will be a user input field.
-    body: JSON.stringify(hardCodedTestMovie)
+    body: JSON.stringify(userEnteredMovie)
 }
 //End of Post function
 
@@ -134,7 +140,11 @@ btnToDel.addEventListener("click", (e) => {
 
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
-    postMovieFunction();
+    // postMovieFunction();
+    console.log(postMovieTitle.value)
+    console.log(postMovieDirector.value)
+    console.log(postMovieRating.value)
+    console.log(postMovieGenre.value)
 });
 
 btnToPatch.addEventListener("click", (e) => {
