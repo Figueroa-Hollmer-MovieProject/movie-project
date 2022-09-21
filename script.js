@@ -57,8 +57,6 @@ const deleteMovieObject = {
 // }
 //
 
-
-
 //End of Patch function
 const displayMovies = () => {
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
