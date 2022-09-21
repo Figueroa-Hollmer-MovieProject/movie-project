@@ -157,20 +157,20 @@ btnToPost.addEventListener("click", (e) => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
             .then(result => result.json()).then(data => {
                 displayMovies();
-                return console.log(data)
+                return console.log(data);
         })
             .catch(err => console.log("There has been an error: " + err));
     }
-    let postMovieTitle = document.getElementById("add-movie-title").value;
-    let postMovieDirector = document.getElementById("add-movie-director").value;
-    let postMovieRating = document.getElementById("add-movie-rating").value;
-    let postMovieGenre = document.getElementById("add-movie-genre").value;
+    let postMovieTitle = document.getElementById("add-movie-title");
+    let postMovieDirector = document.getElementById("add-movie-director");
+    let postMovieRating = document.getElementById("add-movie-rating");
+    let postMovieGenre = document.getElementById("add-movie-genre");
 
     const userEnteredMovie = {
-        "title": postMovieTitle,
-        "director": postMovieDirector,
-        "genre": postMovieGenre,
-        "rating": postMovieRating
+        "title": postMovieTitle.value,
+        "director": postMovieDirector.value,
+        "genre": postMovieGenre.value,
+        "rating": postMovieRating.value
     }
     const postMovieObject = {
         method: "POST",
@@ -182,5 +182,5 @@ btnToPost.addEventListener("click", (e) => {
     postMovieFunction();
 });
 //End of post functionality
-
+//Display on page load
 displayMovies();
