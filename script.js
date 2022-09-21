@@ -72,39 +72,48 @@ const displayMovies = () => {
             // console.log(editBtn[1])
 
             for (let button of editButtons) {
-
-                //Start of event listener
+                //Start of red edit button event listener
                 button.addEventListener("click", () => {
                     button.parentElement.nextElementSibling.classList.toggle("hidden");
+                })
+            //    End of red edit button event listener
+            }
 
-
-
-
+            // Start of for loop to initalize confirm edit button event listeners
+            let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
+            for (let button of confirmEditButtons) {
+                button.addEventListener("click", () => {
+                //  INSIDE OF HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
                         fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
                             .then(result => result.json()).then(data => console.log(data))
                             .catch(err => console.log("There has been an error: " + err));
                     }
 
-                    const hardCodedPatchMovie = {
-                        "title": "Patched Test Movie",
-                        "director": "Patched Movie Director",
+                    const userInputPatchValue = {
+                        "title": button.parentElement.children[2].value,
+                        "director": button.parentElement.children[5].value,
+                        "rating": button.parentElement.children[8].value,
+                        "genre": button.parentElement.children[11].value
                     }
                     const patchMovieObject = {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json"
                         },
-//    Hard coding in a post right now, later this will be a user input field.
-                        body: JSON.stringify(hardCodedPatchMovie)
+                        //    Hard coding in a post right now, later this will be a user input field.
+                        body: JSON.stringify(userInputPatchValue)
                     }
+                    patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
+                    displayMovies();
 
+
+
+                    console.log(button.parentElement.parentElement.children[0].innerHTML);
                 })
-            //    End of event listener
-
-
-
             }
+            // End of for loop to initalize confirm edit button event listeners
+
 
         })
         .catch(err => console.log(err));
@@ -119,6 +128,7 @@ function convertToHTML(data) {
     console.log(data);
     for (let i = 0; i < data.length; i++) {
         html += `<div class="card w-50 mb-5">
+                    <span class="hidden">${data[i].id}</span>
                     <img class="card-img-top" alt="PUT IMAGE HERE">
                     <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
@@ -143,7 +153,7 @@ function convertToHTML(data) {
                         <label for="edit-movie-genre">Genre: </label>
                         <input name="edit-movie-genre" id="edit-movie-genre" type="text" placeholder="${data[i].genre}">
                         <br>
-                        <button type="button" id="btn-to-post">Post</button>
+                        <button type="button" class="btn-to-confirm-edit">Edit</button>
                     </form>
                     
 <!--                      End of edit form                   -->
@@ -196,6 +206,7 @@ btnToPost.addEventListener("click", (e) => {
         body: JSON.stringify(userEnteredMovie)
     }
     postMovieFunction();
+    displayMovies();
 });
 
 btnToPatch.addEventListener("click", (e) => {
