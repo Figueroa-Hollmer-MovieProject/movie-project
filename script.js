@@ -16,45 +16,6 @@ const getMovieObject = {
 };
 // End of GET Function
 
-// Start of Delete Function
-const deleteMovieFunction = (id) => {
-    fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, deleteMovieObject)
-        .then(resp => resp.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
-}
-
-const deleteMovieObject = {
-    method: "DELETE",
-    headers: {
-        "Content-Type": "application/json"
-    }
-}
-//End of Delete Function
-
-
-//Start of Patch function
-// const patchMovieFunction = (id) => {
-//     fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
-//         .then(result => result.json()).then(data => console.log(data))
-//         .catch(err => console.log("There has been an error: " + err));
-// }
-//
-// const hardCodedPatchMovie = {
-//     "title": "Patched Test Movie",
-//     "director": "Patched Movie Director",
-// }
-// const patchMovieObject = {
-//     method: "PATCH",
-//     headers: {
-//         "Content-Type": "application/json"
-//     },
-// //    Hard coding in a post right now, later this will be a user input field.
-//     body: JSON.stringify(hardCodedPatchMovie)
-// }
-//
-
-//End of Patch function
 const displayMovies = () => {
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
@@ -184,17 +145,10 @@ let btnToDel = document.getElementById("btn-to-delete");
 let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
 let movies = document.getElementById("movies");
-let btnShowMovies = document.getElementById("btn-to-show-movies");
-let deleteID = document.getElementById("deleteInput");
 
 btn.on("click", getMovieFunction);
 
-btnToDel.addEventListener("click", (e) => {
-    e.preventDefault();
-    deleteMovieFunction(deleteID.value);
-
-});
-
+//Start of post functionality
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
     const postMovieFunction = () => {
@@ -223,9 +177,6 @@ btnToPost.addEventListener("click", (e) => {
     postMovieFunction();
     displayMovies();
 });
-
-btnShowMovies.addEventListener("click", (e) => {
-    e.preventDefault();
-});
+//End of post functionality
 
 displayMovies();
