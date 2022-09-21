@@ -79,20 +79,34 @@ const patchMovieObject = {
     body: JSON.stringify(hardCodedPatchMovie)
 }
 //End of Patch function
+const getMovieFunctions = () => {
+    fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
+        .then(resp => resp.json())
+        .then(data => {
+            let moviesToDisplay = convertToHTML(data);
+            console.log(moviesToDisplay);
+            movies.innerHTML = moviesToDisplay;
+        })
+        .catch(err => console.log(err));
+}
+
+
 
 
 //Start of convert to html function
 function convertToHTML(data) {
     let html = "";
+    console.log(data);
     for (let i = 0; i < data.length; i++) {
         html += `<div class="card">
                     <img class="card-img-top" alt="PUT IMAGE HERE">
                     <div class="card-body">
-                        <h5 class="card-title">${data.title}</h5>
-                        <p class="card-text">${data.rating}</p>
+                        <h5 class="card-title">Hello</h5>
+                        <p class="card-text">World</p>
                     </div>
                 </div>`
     }
+    console.log(html);
     return html;
 }
 //End of convert to html function
@@ -111,6 +125,7 @@ let btnToDel = document.getElementById("btn-to-delete");
 let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
 let movies = document.getElementById("movies");
+let btnShowMovies = document.getElementById("btn-to-show-movies");
 
 btn.addEventListener("click", getMovieFunction);
 
@@ -129,3 +144,7 @@ btnToPatch.addEventListener("click", (e) => {
     patchMovieFunction(293);
 });
 
+btnShowMovies.addEventListener("click", (e) => {
+    e.preventDefault();
+    getMovieFunctions();
+});
