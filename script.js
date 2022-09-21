@@ -157,6 +157,10 @@ btnToPost.addEventListener("click", (e) => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
             .then(result => result.json()).then(data => {
                 displayMovies();
+                postMovieTitle.value = "";
+                postMovieDirector.value = "";
+                postMovieGenre.value = "";
+                postMovieRating.value = "";
                 return console.log(data);
         })
             .catch(err => console.log("There has been an error: " + err));
