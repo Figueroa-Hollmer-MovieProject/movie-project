@@ -18,10 +18,6 @@ const getMovieObject = {
 
 // Start of Delete Function
 const deleteMovieFunction = (id) => {
-
-    if (typeof id !== "number") {
-        console.log("Please input a valid number...");
-    }
     fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, deleteMovieObject)
         .then(resp => resp.json())
         .then(data => console.log(data))
@@ -36,28 +32,7 @@ const deleteMovieObject = {
 }
 //End of Delete Function
 
-//Start of Post Function
-const postMovieFunction = () => {
-    fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
-        .then(result => result.json()).then(data => console.log(data))
-        .catch(err => console.log("There has been an error: " + err));
-}
 
-
-const hardCodedTestMovie = { // For testing purposes.
-    "title": "Test Movie",
-    "director": "Movie Director",
-    "genre": "Test Genre"
-}
-const postMovieObject = {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-//    Hard coding in a post right now, later this will be a user input field.
-    body: JSON.stringify(hardCodedTestMovie)
-}
-//End of Post function
 
 //Start of Patch function
 const patchMovieFunction = (id) => {
@@ -101,7 +76,7 @@ function convertToHTML(data) {
         html += `<div class="card">
                     <img class="card-img-top" alt="PUT IMAGE HERE">
                     <div class="card-body">
-                        <h5 class="card-title">Hello</h5>
+                        <h5 class="card-title">${data[i].title}</h5>
                         <p class="card-text">World</p>
                     </div>
                 </div>`
@@ -126,17 +101,53 @@ let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
 let movies = document.getElementById("movies");
 let btnShowMovies = document.getElementById("btn-to-show-movies");
+let deleteID = document.getElementById("deleteInput")
 
 btn.addEventListener("click", getMovieFunction);
 
 btnToDel.addEventListener("click", (e) => {
     e.preventDefault();
-    deleteMovieFunction(7);
+    deleteMovieFunction(deleteID.value);
+
 });
 
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
+
+    //Start of Post Function
+    const postMovieFunction = () => {
+        fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
+            .then(result => result.json()).then(data => console.log(data))
+            .catch(err => console.log("There has been an error: " + err));
+    }
+
+// let postForm = document.getElementById("addMoviesForm").elements
+    let postMovieTitle = document.getElementById("add-movie-title").value;
+    let postMovieDirector = document.getElementById("add-movie-director").value;
+    let postMovieRating = document.getElementById("add-movie-rating").value;
+    let postMovieGenre = document.getElementById("add-movie-genre").value;
+
+
+    const userEnteredMovie = { // For testing purposes.
+        "title": postMovieTitle,
+        "director": postMovieDirector,
+        "genre": postMovieGenre,
+        "rating": postMovieRating
+    }
+    const postMovieObject = {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(userEnteredMovie)
+    }
+//End of Post function
+
     postMovieFunction();
+    console.log(postMovieTitle)
+    console.log(postMovieDirector)
+    console.log(postMovieRating)
+    console.log(postMovieGenre)
 });
 
 btnToPatch.addEventListener("click", (e) => {

@@ -19,10 +19,32 @@
     <main id="movies-container">
         <div id="movies"></div>
         <button type="button" id="btn-to-show">Show</button>
-        <button type="button" id="btn-to-post">Post</button>
-        <button type="button" id="btn-to-delete">Delete</button>
+
+        <form>
+            <input type="text" name="btn-to-delete" id="deleteInput" placeholder="Enter ID">
+            <button type="button" id="btn-to-delete">Delete</button>
+        </form>
         <button type="button" id="btn-to-patch">Patch</button>
         <button type="button" id="btn-to-show-movies">Show Movies Cards</button>
+
+        <form id="addMoviesForm" class="movie-form">
+            <p>Add Your Movie</p>
+            <label for="add-movie-title">Title: </label>
+            <input name="add-movie-title" id="add-movie-title" type="text" placeholder="Title: ">
+            <br>
+            <label for="add-movie-director">Director: </label>
+            <input name="add-movie-director" id="add-movie-director" type="text" placeholder="Director: ">
+            <br>
+            <label for="add-movie-rating">Rating: </label>
+            <input name="add-movie-rating" id="add-movie-rating" type="text" placeholder="Rating: ">
+            <br>
+            <label for="add-movie-genre">Genre: </label>
+            <input name="add-movie-genre" id="add-movie-genre" type="text" placeholder="Genre: ">
+            <br>
+            <button type="button" id="btn-to-post">Post</button>
+        </form>
+
+
     </main>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8" crossorigin="anonymous"></script>
     <script src="script.js"></script>

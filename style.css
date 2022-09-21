@@ -1,3 +1,9 @@
 #movies-container {
     margin: 2em;
 }
+
+.movie-form {
+    border: 1px solid black;
+    width: 26%;
+    margin: 1em;
+}
