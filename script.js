@@ -54,12 +54,11 @@ const patchMovieObject = {
     body: JSON.stringify(hardCodedPatchMovie)
 }
 //End of Patch function
-const getMovieFunctions = () => {
+const displayMovies = () => {
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
         .then(data => {
             let moviesToDisplay = convertToHTML(data);
-            console.log(moviesToDisplay);
             movies.innerHTML = moviesToDisplay;
         })
         .catch(err => console.log(err));
@@ -73,27 +72,20 @@ function convertToHTML(data) {
     let html = "";
     console.log(data);
     for (let i = 0; i < data.length; i++) {
-        html += `<div class="card">
+        html += `<div class="card w-50 mb-5">
                     <img class="card-img-top" alt="PUT IMAGE HERE">
                     <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
-                        <p class="card-text">World</p>
+                        <h5 class="card-title">${data[i].director}</h5>
+                        <p class="card-text">${data[i].rating}</p>
+                        <p class="card-text">${data[i].genre}</p>
+                        <button class="edit-btn btn bg-danger text-white" type="button">Edit</button>
                     </div>
                 </div>`
     }
-    console.log(html);
     return html;
 }
 //End of convert to html function
-
-//Start of send to HTML function
-function sendToHTML(data) {
-    //...
-    //...
-    //...
-}
-//End of send to HTML function
-
 
 let btn = document.getElementById("btn-to-show");
 let btnToDel = document.getElementById("btn-to-delete");
@@ -101,7 +93,7 @@ let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
 let movies = document.getElementById("movies");
 let btnShowMovies = document.getElementById("btn-to-show-movies");
-let deleteID = document.getElementById("deleteInput")
+let deleteID = document.getElementById("deleteInput");
 
 btn.addEventListener("click", getMovieFunction);
 
@@ -113,22 +105,17 @@ btnToDel.addEventListener("click", (e) => {
 
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
-
-    //Start of Post Function
     const postMovieFunction = () => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
             .then(result => result.json()).then(data => console.log(data))
             .catch(err => console.log("There has been an error: " + err));
     }
-
-// let postForm = document.getElementById("addMoviesForm").elements
     let postMovieTitle = document.getElementById("add-movie-title").value;
     let postMovieDirector = document.getElementById("add-movie-director").value;
     let postMovieRating = document.getElementById("add-movie-rating").value;
     let postMovieGenre = document.getElementById("add-movie-genre").value;
 
-
-    const userEnteredMovie = { // For testing purposes.
+    const userEnteredMovie = {
         "title": postMovieTitle,
         "director": postMovieDirector,
         "genre": postMovieGenre,
@@ -141,13 +128,7 @@ btnToPost.addEventListener("click", (e) => {
         },
         body: JSON.stringify(userEnteredMovie)
     }
-//End of Post function
-
     postMovieFunction();
-    console.log(postMovieTitle)
-    console.log(postMovieDirector)
-    console.log(postMovieRating)
-    console.log(postMovieGenre)
 });
 
 btnToPatch.addEventListener("click", (e) => {
@@ -157,5 +138,6 @@ btnToPatch.addEventListener("click", (e) => {
 
 btnShowMovies.addEventListener("click", (e) => {
     e.preventDefault();
-    getMovieFunctions();
 });
+
+displayMovies();
