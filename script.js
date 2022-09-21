@@ -75,8 +75,6 @@ const displayMovies = () => {
 
                 //Start of event listener
                 button.addEventListener("click", () => {
-                    console.log(button);
-
                     button.parentElement.nextElementSibling.classList.toggle("hidden");
 
 
@@ -156,7 +154,7 @@ function convertToHTML(data) {
 }
 //End of convert to html function
 
-let btn = document.getElementById("btn-to-show");
+let btn = $("#btn-to-show");
 let btnToDel = document.getElementById("btn-to-delete");
 let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
@@ -164,7 +162,7 @@ let movies = document.getElementById("movies");
 let btnShowMovies = document.getElementById("btn-to-show-movies");
 let deleteID = document.getElementById("deleteInput");
 
-btn.addEventListener("click", getMovieFunction);
+btn.on("click", getMovieFunction);
 
 btnToDel.addEventListener("click", (e) => {
     e.preventDefault();
