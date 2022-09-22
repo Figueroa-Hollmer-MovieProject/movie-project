@@ -105,9 +105,16 @@ const displayMovies = () => {
             // End of favoriting functionality
 
             // Start of "Sort by" filter functionality
-            const sortBy = document.getElementById("movie-filter");
+            const sortBy = document.getElementById("movie-filter-genre");
             sortBy.addEventListener("click", (e) => {
-
+                sortBy.addEventListener("change", (e) => {
+                    let array = [];
+                   console.log(sortBy.value);
+                   array.push(data.filter((n) => {
+                       return n.genre.toLowerCase() === `${sortBy.value}`;
+                   }));
+                   console.log(array);
+                });
             });
 
         })
