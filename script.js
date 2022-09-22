@@ -28,16 +28,13 @@ const displayMovies = () => {
 
             //This is the event listener to edit movies
             let editButtons = document.getElementsByClassName("edit-btn");
-
             for (let button of editButtons) {
-                //Start of red edit button event listener
                 button.addEventListener("click", () => {
                     button.parentElement.nextElementSibling.classList.toggle("hidden");
-                })
-            //    End of red edit button event listener
+                });
             }
 
-            // Start of for loop to initalize confirm edit button event listeners
+            // Start of for loop to confirm edit button event listeners
             let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
@@ -50,7 +47,6 @@ const displayMovies = () => {
                         })
                             .catch(err => console.log("There has been an error: " + err));
                     }
-
                     const userInputPatchValue = {
                         "title": button.parentElement.children[2].value,
                         "director": button.parentElement.children[5].value,
@@ -69,7 +65,7 @@ const displayMovies = () => {
                     // console.log(button.parentElement.parentElement.children[0].innerHTML);
                 });
             }
-            // End of for loop to initalize confirm edit button event listeners
+            // End of for loop to confirm edit button event listeners
 
             // Start of delete functionality
             let deleteButtons = document.getElementsByClassName("delete-btn");
@@ -99,27 +95,24 @@ const displayMovies = () => {
             // End of delete functionality
 
             // Start of favoriting functionality
-
             let favoriteButtons = document.getElementsByClassName("star");
             for (let button of favoriteButtons) {
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
                     button.classList.toggle("favorited");
-                })
+                });
             }
-
-
-
-
-
-
             // End of favoriting functionality
+
+            // Start of "Sort by" filter functionality
+            const sortBy = document.getElementById("movie-filter");
+            sortBy.addEventListener("click", (e) => {
+
+            });
+
         })
         .catch(err => console.log(err));
 }
-
-
-
 
 //Start of convert to html function
 function convertToHTML(data) {
@@ -148,10 +141,25 @@ function convertToHTML(data) {
                         <input class="form-control w-75" name="edit-movie-director" id="edit-movie-director" type="text" placeholder="${data[i].director}">
                         <br>
                         <label class="form-label" for="edit-movie-rating">Rating: </label>
-                        <input class="form-control w-75" name="edit-movie-rating" id="edit-movie-rating" type="text" placeholder="${data[i].rating}">
+                        <select class="form-select w-50" name="edit-movie-rating" id="edit-movie-rating">
+                            <option>Select rating</option>
+                            <option value="G">G</option>
+                            <option value="PG">PG</option>
+                            <option value="PG-13">PG-13</option>
+                            <option value="R">R</option>
+                        </select>
                         <br>
                         <label class="form-label" for="edit-movie-genre">Genre: </label>
-                        <input class="form-control w-75" name="edit-movie-genre" id="edit-movie-genre" type="text" placeholder="${data[i].genre}">
+                        <select class="form-select w-50" name="edit-movie-genre" id="edit-movie-genre">
+                            <option>Select genre</option>
+                            <option value="Action">Action</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Crime">Crime</option>
+                            <option value="Horror">Horror</option>
+                        </select>
                         <br>
                         <button type="button" class="btn-to-confirm-edit btn btn-sm btn-primary">Edit</button>
                     </form>  
