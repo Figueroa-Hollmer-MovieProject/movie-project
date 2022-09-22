@@ -108,19 +108,19 @@ const displayMovies = () => {
             // Start of "Sort by" filter functionality
             const sortBy = document.getElementById("movie-filter-genre");
             sortBy.addEventListener("change", (e) => {
+                let array = [];
+                if (sortBy.value === "none") {
+                    array = data;
+                } else {
+                    array = data.filter((n) => {
+                        return n.genre.toLowerCase().includes(`${sortBy.value}`);
+                    });
+                }
                 // Display sorted movies function
                 const displaySortedMovies = (arr) => {
                     let sortedMovies = convertToHTML(arr);
-                    console.log(arr);
                     movies.innerHTML = sortedMovies;
-                    console.log(sortedMovies);
                 }
-                let array = [];
-                console.log(sortBy.value);
-                array = data.filter((n) => {
-                    return n.genre.toLowerCase().includes(`${sortBy.value}`);
-                });
-                // console.log(array);
                 displaySortedMovies(array);
             });
 
