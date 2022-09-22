@@ -106,33 +106,33 @@ function convertToHTML(data) {
     let html = "";
     console.log(data);
     for (let i = 0; i < data.length; i++) {
-        html += `<div class="card w-50 mb-5">
+        html += `<div class="card mb-5" style="width: 301px;">
                     <span class="hidden">${data[i].id}</span>
-                    <img class="card-img-top" alt="PUT IMAGE HERE">
+                    <img src="img/movie-banner.jpeg" class="card-img-top movie-banner" alt="PUT IMAGE HERE">
                     <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
-                        <h5 class="card-title">${data[i].director}</h5>
+                        <h5 class="card-title fs-6">${data[i].director}</h5>
                         <p class="card-text">${data[i].rating}</p>
                         <p class="card-text">${data[i].genre}</p>
-                        <button class="edit-btn btn bg-primary text-white" type="button">Edit Movie</button>
-                        <button class="delete-btn btn bg-danger text-white" type="button">Delete Movie</button>
+                        <button class="edit-btn btn btn-sm bg-primary text-white" type="button">Edit Movie</button>
+                        <button class="delete-btn btn btn-sm bg-danger text-white" type="button">Delete Movie</button>
                     </div>
 <!--                    Start of edit form                  -->
                     <form class="edit-form hidden">
                         <p>Edit This Movie</p>
-                        <label for="edit-movie-title">Title: </label>
-                        <input name="edit-movie-title" id="edit-movie-title" type="text" placeholder="${data[i].title}">
+                        <label class="form-label" for="edit-movie-title">Title: </label>
+                        <input class="form-control w-75" name="edit-movie-title" id="edit-movie-title" type="text" placeholder="${data[i].title}">
                         <br>
-                        <label for="edit-movie-director">Director: </label>
-                        <input name="edit-movie-director" id="edit-movie-director" type="text" placeholder="${data[i].director}">
+                        <label class="form-label" for="edit-movie-director">Director: </label>
+                        <input class="form-control w-75" name="edit-movie-director" id="edit-movie-director" type="text" placeholder="${data[i].director}">
                         <br>
-                        <label for="edit-movie-rating">Rating: </label>
-                        <input name="edit-movie-rating" id="edit-movie-rating" type="text" placeholder="${data[i].rating}">
+                        <label class="form-label" for="edit-movie-rating">Rating: </label>
+                        <input class="form-control w-75" name="edit-movie-rating" id="edit-movie-rating" type="text" placeholder="${data[i].rating}">
                         <br>
-                        <label for="edit-movie-genre">Genre: </label>
-                        <input name="edit-movie-genre" id="edit-movie-genre" type="text" placeholder="${data[i].genre}">
+                        <label class="form-label" for="edit-movie-genre">Genre: </label>
+                        <input class="form-control w-75" name="edit-movie-genre" id="edit-movie-genre" type="text" placeholder="${data[i].genre}">
                         <br>
-                        <button type="button" class="btn-to-confirm-edit">Edit</button>
+                        <button type="button" class="btn-to-confirm-edit btn btn-sm btn-primary">Edit</button>
                     </form>  
 <!--                      End of edit form                   -->
                 </div>`
