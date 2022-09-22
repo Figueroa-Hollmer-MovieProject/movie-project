@@ -24,6 +24,7 @@ const displayMovies = () => {
         .then(data => {
             hideLoading();
             let moviesToDisplay = convertToHTML(data);
+            console.log(data);
             movies.innerHTML = moviesToDisplay;
 
             //This is the event listener to edit movies
@@ -108,12 +109,20 @@ const displayMovies = () => {
             const sortBy = document.getElementById("movie-filter-genre");
             sortBy.addEventListener("click", (e) => {
                 sortBy.addEventListener("change", (e) => {
+                    // Display sorted movies function
+                    const displaySortedMovies = (arr) => {
+                        let sortedMovies = convertToHTML(arr);
+                        console.log(arr);
+                        movies.innerHTML = sortedMovies;
+                        console.log(sortedMovies);
+                    }
                     let array = [];
                    console.log(sortBy.value);
-                   array.push(data.filter((n) => {
-                       return n.genre.toLowerCase() === `${sortBy.value}`;
-                   }));
-                   console.log(array);
+                   array = data.filter((n) => {
+                       return n.genre.toLowerCase().includes(`${sortBy.value}`);
+                   });
+                   // console.log(array);
+                    displaySortedMovies(array);
                 });
             });
 
@@ -124,7 +133,6 @@ const displayMovies = () => {
 //Start of convert to html function
 function convertToHTML(data) {
     let html = "";
-    console.log(data);
     for (let i = 0; i < data.length; i++) {
         html += `<div class="card me-5 mb-5" style="width: 301px;">
                     <span class="hidden">${data[i].id}</span>
