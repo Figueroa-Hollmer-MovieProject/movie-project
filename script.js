@@ -17,9 +17,12 @@ const getMovieObject = {
 // End of GET Function
 
 const displayMovies = () => {
+    // Display loading animation while we wait for promise.
+    displayLoading();
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
         .then(data => {
+            hideLoading();
             let moviesToDisplay = convertToHTML(data);
             movies.innerHTML = moviesToDisplay;
 
@@ -106,7 +109,7 @@ function convertToHTML(data) {
     let html = "";
     console.log(data);
     for (let i = 0; i < data.length; i++) {
-        html += `<div class="card mb-5" style="width: 301px;">
+        html += `<div class="card me-5 mb-5" style="width: 301px;">
                     <span class="hidden">${data[i].id}</span>
                     <img src="img/movie-banner.jpeg" class="card-img-top movie-banner" alt="PUT IMAGE HERE">
                     <div class="card-body">
@@ -142,11 +145,23 @@ function convertToHTML(data) {
 }
 //End of convert to html function
 
-let btn = $("#btn-to-show");
-let btnToDel = document.getElementById("btn-to-delete");
-let btnToPost = document.getElementById("btn-to-post");
-let btnToPatch = document.getElementById("btn-to-patch");
-let movies = document.getElementById("movies");
+const displayLoading = () => {
+    loader.classList.add("display");
+    setTimeout(() => {
+        loader.classList.remove("display");
+    }, 5000);
+}
+
+const hideLoading = () => {
+    loader.classList.remove("display");
+}
+
+const loader = document.getElementById("loading");
+const btn = $("#btn-to-show");
+const btnToDel = document.getElementById("btn-to-delete");
+const btnToPost = document.getElementById("btn-to-post");
+const btnToPatch = document.getElementById("btn-to-patch");
+const movies = document.getElementById("movies");
 
 btn.on("click", getMovieFunction);
 
