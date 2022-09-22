@@ -60,3 +60,12 @@ body {
 #copyright {
     text-align: center;
 }
+
+.star {
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.favorited {
+    background-color: yellow;
+}

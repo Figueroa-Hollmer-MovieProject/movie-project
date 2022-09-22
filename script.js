@@ -97,6 +97,23 @@ const displayMovies = () => {
                 });
             }
             // End of delete functionality
+
+            // Start of favoriting functionality
+
+            let favoriteButtons = document.getElementsByClassName("star");
+            for (let button of favoriteButtons) {
+                button.addEventListener("click", (e) => {
+                    e.preventDefault();
+                    button.classList.toggle("favorited");
+                })
+            }
+
+
+
+
+
+
+            // End of favoriting functionality
         })
         .catch(err => console.log(err));
 }
@@ -119,6 +136,7 @@ function convertToHTML(data) {
                         <p class="card-text">${data[i].genre}</p>
                         <button class="edit-btn btn btn-sm bg-primary text-white" type="button">Edit Movie</button>
                         <button class="delete-btn btn btn-sm bg-danger text-white" type="button">Delete Movie</button>
+                        <i class="fa-regular fa-star star"></i>
                     </div>
 <!--                    Start of edit form                  -->
                     <form class="edit-form hidden">
