@@ -16,23 +16,6 @@ const getMovieObject = {
 };
 // End of GET Function
 
-// Start of Delete Function
-const deleteMovieFunction = (id) => {
-    fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, deleteMovieObject)
-        .then(resp => resp.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
-}
-
-const deleteMovieObject = {
-    method: "DELETE",
-    headers: {
-        "Content-Type": "application/json"
-    }
-}
-//End of Delete Function
-
-//End of Patch function
 const displayMovies = () => {
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
@@ -58,7 +41,10 @@ const displayMovies = () => {
                 //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
                         fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
-                            .then(result => result.json()).then(data => console.log(data))
+                            .then(result => result.json()).then(data => {
+                                displayMovies();
+                                return console.log(data);
+                        })
                             .catch(err => console.log("There has been an error: " + err));
                     }
 
@@ -77,7 +63,6 @@ const displayMovies = () => {
                         body: JSON.stringify(userInputPatchValue)
                     }
                     patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
-                    displayMovies();
                     // console.log(button.parentElement.parentElement.children[0].innerHTML);
                 });
             }
@@ -162,34 +147,34 @@ let btnToDel = document.getElementById("btn-to-delete");
 let btnToPost = document.getElementById("btn-to-post");
 let btnToPatch = document.getElementById("btn-to-patch");
 let movies = document.getElementById("movies");
-let btnShowMovies = document.getElementById("btn-to-show-movies");
-let deleteID = document.getElementById("deleteInput");
 
 btn.on("click", getMovieFunction);
 
-btnToDel.addEventListener("click", (e) => {
-    e.preventDefault();
-    deleteMovieFunction(deleteID.value);
-
-});
-
+//Start of post functionality
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
     const postMovieFunction = () => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
-            .then(result => result.json()).then(data => console.log(data))
+            .then(result => result.json()).then(data => {
+                displayMovies();
+                postMovieTitle.value = "";
+                postMovieDirector.value = "";
+                postMovieGenre.value = "";
+                postMovieRating.value = "";
+                return console.log(data);
+        })
             .catch(err => console.log("There has been an error: " + err));
     }
-    let postMovieTitle = document.getElementById("add-movie-title").value;
-    let postMovieDirector = document.getElementById("add-movie-director").value;
-    let postMovieRating = document.getElementById("add-movie-rating").value;
-    let postMovieGenre = document.getElementById("add-movie-genre").value;
+    let postMovieTitle = document.getElementById("add-movie-title");
+    let postMovieDirector = document.getElementById("add-movie-director");
+    let postMovieRating = document.getElementById("add-movie-rating");
+    let postMovieGenre = document.getElementById("add-movie-genre");
 
     const userEnteredMovie = {
-        "title": postMovieTitle,
-        "director": postMovieDirector,
-        "genre": postMovieGenre,
-        "rating": postMovieRating
+        "title": postMovieTitle.value,
+        "director": postMovieDirector.value,
+        "genre": postMovieGenre.value,
+        "rating": postMovieRating.value
     }
     const postMovieObject = {
         method: "POST",
@@ -199,11 +184,7 @@ btnToPost.addEventListener("click", (e) => {
         body: JSON.stringify(userEnteredMovie)
     }
     postMovieFunction();
-    displayMovies();
 });
-
-btnShowMovies.addEventListener("click", (e) => {
-    e.preventDefault();
-});
-
+//End of post functionality
+//Display on page load
 displayMovies();
