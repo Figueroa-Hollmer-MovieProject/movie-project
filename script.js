@@ -148,10 +148,25 @@ function convertToHTML(data) {
                         <input class="form-control w-75" name="edit-movie-director" id="edit-movie-director" type="text" placeholder="${data[i].director}">
                         <br>
                         <label class="form-label" for="edit-movie-rating">Rating: </label>
-                        <input class="form-control w-75" name="edit-movie-rating" id="edit-movie-rating" type="text" placeholder="${data[i].rating}">
+                        <select class="form-select w-50" name="edit-movie-rating" id="edit-movie-rating">
+                            <option>Select rating</option>
+                            <option value="G">G</option>
+                            <option value="PG">PG</option>
+                            <option value="PG-13">PG-13</option>
+                            <option value="R">R</option>
+                        </select>
                         <br>
                         <label class="form-label" for="edit-movie-genre">Genre: </label>
-                        <input class="form-control w-75" name="edit-movie-genre" id="edit-movie-genre" type="text" placeholder="${data[i].genre}">
+                        <select class="form-select w-50" name="edit-movie-genre" id="edit-movie-genre">
+                            <option>Select genre</option>
+                            <option value="Action">Action</option>
+                            <option value="Comedy">Comedy</option>
+                            <option value="Thriller">Thriller</option>
+                            <option value="Romance">Romance</option>
+                            <option value="Drama">Drama</option>
+                            <option value="Crime">Crime</option>
+                            <option value="Horror">Horror</option>
+                        </select>
                         <br>
                         <button type="button" class="btn-to-confirm-edit btn btn-sm btn-primary">Edit</button>
                     </form>  
