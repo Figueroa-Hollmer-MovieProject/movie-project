@@ -28,16 +28,13 @@ const displayMovies = () => {
 
             //This is the event listener to edit movies
             let editButtons = document.getElementsByClassName("edit-btn");
-
             for (let button of editButtons) {
-                //Start of red edit button event listener
                 button.addEventListener("click", () => {
                     button.parentElement.nextElementSibling.classList.toggle("hidden");
-                })
-            //    End of red edit button event listener
+                });
             }
 
-            // Start of for loop to initalize confirm edit button event listeners
+            // Start of for loop to confirm edit button event listeners
             let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
@@ -50,7 +47,6 @@ const displayMovies = () => {
                         })
                             .catch(err => console.log("There has been an error: " + err));
                     }
-
                     const userInputPatchValue = {
                         "title": button.parentElement.children[2].value,
                         "director": button.parentElement.children[5].value,
@@ -69,7 +65,7 @@ const displayMovies = () => {
                     // console.log(button.parentElement.parentElement.children[0].innerHTML);
                 });
             }
-            // End of for loop to initalize confirm edit button event listeners
+            // End of for loop to confirm edit button event listeners
 
             // Start of delete functionality
             let deleteButtons = document.getElementsByClassName("delete-btn");
@@ -99,27 +95,24 @@ const displayMovies = () => {
             // End of delete functionality
 
             // Start of favoriting functionality
-
             let favoriteButtons = document.getElementsByClassName("star");
             for (let button of favoriteButtons) {
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
                     button.classList.toggle("favorited");
-                })
+                });
             }
-
-
-
-
-
-
             // End of favoriting functionality
+
+            // Start of "Sort by" filter functionality
+            const sortBy = document.getElementById("movie-filter");
+            sortBy.addEventListener("click", (e) => {
+
+            });
+
         })
         .catch(err => console.log(err));
 }
-
-
-
 
 //Start of convert to html function
 function convertToHTML(data) {

@@ -39,6 +39,14 @@
     </nav>
     <!--MAIN CONTENT (MOVIES)-->
     <main id="movies-container">
+        <div id="movie-filter-menu">
+            <label for="movie-filter">Sort By Genre</label>
+            <select id="movie-filter" name="movie-filter" class="form-select" style="width: 15%;">
+                <option value="rating">Rating</option>
+                <option value="genre">Genre</option>
+                <option value="recently-added">Recently Added</option>
+            </select>
+        </div>
         <div>
             <div>
                 <div id="loading"></div>
