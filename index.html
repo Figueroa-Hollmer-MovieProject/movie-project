@@ -13,9 +13,10 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!--NAVBAR-->
     <nav class="navbar navbar-expand-lg bg-danger">
         <div class="container-fluid">
-            <span class="navbar-brand fw-bold text-white fs-4">Movies</span>
+            <span class="navbar-brand fw-bold text-white fs-4">MoviesApp</span>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -35,7 +36,7 @@
             </div>
         </div>
     </nav>
-
+    <!--MAIN CONTENT (MOVIES)-->
     <main id="movies-container">
         <div>
             <div>
@@ -44,8 +45,9 @@
             </div>
         </div>
     </main>
-
+    <!--FOOTER (ADD MOVIE SECTION)-->
     <footer>
+        <hr style="width: 80%; margin-left: 7em;"/>
         <h2 style="text-align: center;">Can't find a movie you like? Just add your own here!</h2>
         <form id="addMoviesForm" class="movie-form">
             <label class="form-label" for="add-movie-title">Title: </label>
@@ -62,6 +64,8 @@
             <br>
             <button class="btn btn-success" type="button" id="btn-to-post">Post</button>
         </form>
+        <hr style="width: 80%; margin-left: 7em;"/>
+        <p id="copyright">©Copyright. All rights reserved.</p>
     </footer>
 
 
