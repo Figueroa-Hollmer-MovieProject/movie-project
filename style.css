@@ -30,12 +30,18 @@ body {
     margin: 2em 6em;
 }
 
+#movies {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
 .movie-form {
     padding: 1em;
-    background: rgba(133, 133, 133, 0.39);
+    background: rgba(133, 133, 133, 0.21);
     border-radius: 10px;
     width: 40%;
-    margin: 1em;
+    margin: 1em auto;
 }
 
 .movie-banner{
@@ -49,4 +55,8 @@ body {
 
 .hidden {
     display: none;
+}
+
+#copyright {
+    text-align: center;
 }
