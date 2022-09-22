@@ -124,6 +124,16 @@ const displayMovies = () => {
                 displaySortedMovies(array);
             });
 
+            //Start of sort by name function
+            let sortByNameField = document.getElementById("search-by-name");
+            sortByNameField.addEventListener("keyup", (e) => {
+                e.preventDefault();
+                let searchingArr = [];
+                searchingArr = data.filter((n) => n.title.toLowerCase().includes(sortByNameField.value));
+                movies.innerHTML = convertToHTML(searchingArr);
+            })
+
+
         })
         .catch(err => console.log(err));
 }
@@ -243,3 +253,6 @@ btnToPost.addEventListener("click", (e) => {
 //End of post functionality
 //Display on page load
 displayMovies();
+
+
+
