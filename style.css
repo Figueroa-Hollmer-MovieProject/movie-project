@@ -1,15 +1,26 @@
+body {
+    font-family: 'Rajdhani', sans-serif;
+}
+
 #movies-container {
     margin: 2em;
 }
 
 .movie-form {
-    border: 1px solid black;
-    width: 26%;
+    padding: 1em;
+    background: rgba(133, 133, 133, 0.39);
+    border-radius: 10px;
+    width: 40%;
     margin: 1em;
 }
 
+.movie-banner{
+    height: 200px;
+    width: 300px;
+}
+
 .edit-form {
-    border: 1px solid black
+    padding: 1em;
 }
 
 .hidden {
