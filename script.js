@@ -39,12 +39,12 @@ const displayMovies = () => {
             let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
-                //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
+                    //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
                         fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
                             .then(result => result.json()).then(data => {
-                                displayMovies();
-                                return console.log(data);
+                            displayMovies();
+                            return console.log(data);
                         })
                             .catch(err => console.log("There has been an error: " + err));
                     }
@@ -107,23 +107,21 @@ const displayMovies = () => {
 
             // Start of "Sort by" filter functionality
             const sortBy = document.getElementById("movie-filter-genre");
-            sortBy.addEventListener("click", (e) => {
-                sortBy.addEventListener("change", (e) => {
-                    // Display sorted movies function
-                    const displaySortedMovies = (arr) => {
-                        let sortedMovies = convertToHTML(arr);
-                        console.log(arr);
-                        movies.innerHTML = sortedMovies;
-                        console.log(sortedMovies);
-                    }
-                    let array = [];
-                   console.log(sortBy.value);
-                   array = data.filter((n) => {
-                       return n.genre.toLowerCase().includes(`${sortBy.value}`);
-                   });
-                   // console.log(array);
-                    displaySortedMovies(array);
+            sortBy.addEventListener("change", (e) => {
+                // Display sorted movies function
+                const displaySortedMovies = (arr) => {
+                    let sortedMovies = convertToHTML(arr);
+                    console.log(arr);
+                    movies.innerHTML = sortedMovies;
+                    console.log(sortedMovies);
+                }
+                let array = [];
+                console.log(sortBy.value);
+                array = data.filter((n) => {
+                    return n.genre.toLowerCase().includes(`${sortBy.value}`);
                 });
+                // console.log(array);
+                displaySortedMovies(array);
             });
 
         })
@@ -184,6 +182,7 @@ function convertToHTML(data) {
     }
     return html;
 }
+
 //End of convert to html function
 
 const displayLoading = () => {
@@ -212,12 +211,12 @@ btnToPost.addEventListener("click", (e) => {
     const postMovieFunction = () => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
             .then(result => result.json()).then(data => {
-                displayMovies();
-                postMovieTitle.value = "";
-                postMovieDirector.value = "";
-                postMovieGenre.value = "";
-                postMovieRating.value = "";
-                return console.log(data);
+            displayMovies();
+            postMovieTitle.value = "";
+            postMovieDirector.value = "";
+            postMovieGenre.value = "";
+            postMovieRating.value = "";
+            return console.log(data);
         })
             .catch(err => console.log("There has been an error: " + err));
     }
