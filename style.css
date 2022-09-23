@@ -30,6 +30,11 @@ body {
 }
 
 /*////////////////////MOVIES CSS////////////////////////*/
+#movie-filter-menu {
+    margin-left: 2em;
+    margin-top: 2em;
+}
+
 #movies-container {
     margin: 2em 6em;
 }
