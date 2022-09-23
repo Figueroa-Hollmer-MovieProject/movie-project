@@ -24,8 +24,6 @@ const displayMovies = (filter, newArray) => {
         .then(data => {
             hideLoading();
 
-            let favoriteButtons = document.getElementsByClassName("star");
-
             // Sort by options
             if (filter === undefined && newArray === undefined) {
                 let moviesToDisplay = convertToHTML(data);
@@ -110,13 +108,12 @@ const displayMovies = (filter, newArray) => {
             // End of delete functionality
 
             // Start of favoriting functionality
-            // let favoriteButtons = document.getElementsByClassName("star");
-            for (let i = 0; i < data.length; i++) {
+            let favoriteButtons = document.getElementsByClassName("star");
+            for (let i = 0; i < favoriteButtons.length; i++) {
                 favoriteButtons[i].addEventListener("click", (e) => {
                     e.preventDefault();
 
                     let currentID = data[i].id
-
                     if (data[i].favorited === true) {
                         data[i].favorited = false;
                     } else {
