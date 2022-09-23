@@ -179,7 +179,7 @@ function convertToHTML(data) {
     for (let i = 0; i < data.length; i++) {
         html += `<div class="card me-5 mb-5" style="width: 301px;">
                     <span class="hidden">${data[i].id}</span>
-                    <img src="img/movie-banner.jpeg" class="card-img-top movie-banner" alt="PUT IMAGE HERE">
+                    <img src="${data[i].poster}" class="card-img-top movie-banner" alt="PUT IMAGE HERE">
                     <div class="card-body">
                         <h5 class="card-title">${data[i].title}</h5>
                         <h5 class="card-title fs-6">${data[i].director}</h5>
@@ -255,13 +255,13 @@ btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
     const postMovieFunction = () => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
-            .then(result => result.json()).then(data => {
-            displayMovies();
-            postMovieTitle.value = "";
-            postMovieDirector.value = "";
-            postMovieGenre.value = "";
-            postMovieRating.value = "";
-            return console.log(data);
+            .then(result => result.json())
+            .then(data => {
+                displayMovies();
+                postMovieTitle.value = "";
+                postMovieDirector.value = "";
+                postMovieGenre.value = "";
+                postMovieRating.value = "";
         })
             .catch(err => console.log("There has been an error: " + err));
     }
@@ -276,14 +276,29 @@ btnToPost.addEventListener("click", (e) => {
         "genre": postMovieGenre.value,
         "rating": postMovieRating.value
     }
-    const postMovieObject = {
+    let postMovieObject = {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
         body: JSON.stringify(userEnteredMovie)
     }
-    postMovieFunction();
+
+    let title = userEnteredMovie.title;
+    fetch(`https://www.omdbapi.com?t=${title}&apikey=thewdb`)
+        .then(resp => resp.json())
+        .then(data => {
+            userEnteredMovie.poster = data.Poster;
+            postMovieObject = {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(userEnteredMovie)
+            }
+            postMovieFunction();
+        })
+        .catch(err => console.log(err))
 });
 //End of post functionality
 //Display on page load
