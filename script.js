@@ -96,10 +96,21 @@ const displayMovies = () => {
 
             // Start of favoriting functionality
             let favoriteButtons = document.getElementsByClassName("star");
-            for (let button of favoriteButtons) {
-                button.addEventListener("click", (e) => {
+            for (let i = 0; i < data.length; i++) {
+                favoriteButtons[i].addEventListener("click", (e) => {
                     e.preventDefault();
-                    button.classList.toggle("favorited");
+                    if (favoriteButtons[i].style.backgroundColor == "yellow") {
+                        favoriteButtons[i].style.backgroundColor = "white"
+                        console.log("now it's white")
+                        data[i].favorited = false;
+                        console.log(data[i])
+                    } else {
+                        favoriteButtons[i].style.backgroundColor = "yellow";
+                        console.log("now it's yellow")
+                        data[i].favorited = true;
+                        console.log(data[i])
+                    }
+
                 });
             }
             // End of favoriting functionality
@@ -286,5 +297,3 @@ btnToPost.addEventListener("click", (e) => {
 //End of post functionality
 //Display on page load
 displayMovies();
-
-
