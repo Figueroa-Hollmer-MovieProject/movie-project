@@ -1,7 +1,6 @@
 "use strict";
 
 //Start of getting the images for the cards
-
 const getImages = () => {
     let title = "John Wick"
     fetch(`https://www.omdbapi.com?t=${title}&apikey=thewdb`)
