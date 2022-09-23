@@ -16,16 +16,31 @@ const getMovieObject = {
 };
 // End of GET Function
 
-const displayMovies = () => {
+const displayMovies = (filter, newArray) => {
     // Display loading animation while we wait for promise.
     displayLoading();
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
         .then(data => {
             hideLoading();
-            let moviesToDisplay = convertToHTML(data);
-            console.log(data);
-            movies.innerHTML = moviesToDisplay;
+
+            let favoriteButtons = document.getElementsByClassName("star");
+
+            // Sort by options
+            if (filter === undefined && newArray === undefined) {
+                let moviesToDisplay = convertToHTML(data);
+                console.log(data);
+                movies.innerHTML = moviesToDisplay;
+            } else if (filter === "genre") {
+                movies.innerHTML = convertToHTML(newArray);
+            } else if (filter === "rating") {
+                movies.innerHTML = convertToHTML(newArray);
+            } else if (filter === "favorited") {
+                movies.innerHTML = convertToHTML(newArray);
+                for (let i = 0; i < favoriteButtons.length; i++) {
+                    favoriteButtons[i].style.backgroundColor = "yellow";
+                }
+            }
 
             //This is the event listener to edit movies
             let editButtons = document.getElementsByClassName("edit-btn");
@@ -95,11 +110,11 @@ const displayMovies = () => {
             // End of delete functionality
 
             // Start of favoriting functionality
-            let favoriteButtons = document.getElementsByClassName("star");
+            // let favoriteButtons = document.getElementsByClassName("star");
             for (let i = 0; i < data.length; i++) {
                 favoriteButtons[i].addEventListener("click", (e) => {
                     e.preventDefault();
-                    if (favoriteButtons[i].style.backgroundColor == "yellow") {
+                    if (data[i].favorited === true) {
                         favoriteButtons[i].style.backgroundColor = "white"
                         console.log("now it's white")
                         data[i].favorited = false;
@@ -110,10 +125,21 @@ const displayMovies = () => {
                         data[i].favorited = true;
                         console.log(data[i])
                     }
-
                 });
             }
             // End of favoriting functionality
+            const sortByFavorite = document.getElementById("movie-filter-favorited");
+            sortByFavorite.addEventListener("change", (e) => {
+               e.preventDefault();
+               if (sortByFavorite.value === "true") {
+                   let favoritedArray = data.filter((n) => {
+                        return n.favorited === true;
+                    });
+                    displayMovies("favorited", favoritedArray);
+               } else {
+                   displayMovies();
+               }
+            });
 
             // Start of "Sort by Genre" filter functionality
             const sortBy = document.getElementById("movie-filter-genre");
@@ -126,12 +152,7 @@ const displayMovies = () => {
                         return n.genre.toLowerCase().includes(`${sortBy.value}`);
                     });
                 }
-                // Display sorted movies function
-                const displaySortedMovies = (arr) => {
-                    let sortedMovies = convertToHTML(arr);
-                    movies.innerHTML = sortedMovies;
-                }
-                displaySortedMovies(array);
+                displayMovies("genre", array);
             });
 
             //Start of sort by name function
@@ -154,11 +175,7 @@ const displayMovies = () => {
                        return n.rating === sortByRating.value;
                    });
                }
-                const displaySortedRatedMovies = (arr) => {
-                    let sortedRatingMovies = convertToHTML(arr);
-                    movies.innerHTML = sortedRatingMovies;
-                }
-                displaySortedRatedMovies(ratingArray);
+               displayMovies("rating", ratingArray);
             });
         })
         .catch(err => console.log(err));
