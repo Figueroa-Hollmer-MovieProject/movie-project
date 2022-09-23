@@ -63,7 +63,6 @@ const displayMovies = () => {
                         body: JSON.stringify(userInputPatchValue)
                     }
                     patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
-                    // console.log(button.parentElement.parentElement.children[0].innerHTML);
                 });
             }
             // End of for loop to confirm edit button event listeners
@@ -158,14 +157,14 @@ const displayMovies = () => {
 function convertToHTML(data) {
     let html = "";
     for (let i = 0; i < data.length; i++) {
-        html += `<div class="card me-5 mb-5" style="width: 301px;">
+        html += `<div class="card me-5 mb-5 bg-dark" style="width: 301px;">
                     <span class="hidden">${data[i].id}</span>
                     <img src="${data[i].poster}" class="card-img-top movie-banner" alt="PUT IMAGE HERE">
                     <div class="card-body">
-                        <h5 class="card-title">${data[i].title}</h5>
-                        <h5 class="card-title fs-6">${data[i].director}</h5>
-                        <p class="card-text">${data[i].rating}</p>
-                        <p class="card-text">${data[i].genre}</p>
+                        <h5 class="card-title text-white fw-bold">${data[i].title}</h5>
+                        <h5 class="card-title fs-6 text-white">${data[i].director}</h5>
+                        <p class="card-text text-white">${data[i].rating}</p>
+                        <p class="card-text text-white">${data[i].genre}</p>
                         <button class="edit-btn btn btn-sm bg-primary text-white" type="button">Edit Movie</button>
                         <button class="delete-btn btn btn-sm bg-danger text-white" type="button">Delete Movie</button>
                         <i class="fa-regular fa-star star"></i>
@@ -173,13 +172,13 @@ function convertToHTML(data) {
 <!--                    Start of edit form                  -->
                     <form class="edit-form hidden">
                         <p>Edit This Movie</p>
-                        <label class="form-label" for="edit-movie-title">Title: </label>
+                        <label class="form-label text-white" for="edit-movie-title">Title: </label>
                         <input class="form-control w-75" name="edit-movie-title" id="edit-movie-title" type="text" placeholder="${data[i].title}">
                         <br>
-                        <label class="form-label" for="edit-movie-director">Director: </label>
+                        <label class="form-label text-white" for="edit-movie-director">Director: </label>
                         <input class="form-control w-75" name="edit-movie-director" id="edit-movie-director" type="text" placeholder="${data[i].director}">
                         <br>
-                        <label class="form-label" for="edit-movie-rating">Rating: </label>
+                        <label class="form-label text-white" for="edit-movie-rating">Rating: </label>
                         <select class="form-select w-50" name="edit-movie-rating" id="edit-movie-rating">
                             <option>Select rating</option>
                             <option value="G">G</option>
@@ -188,7 +187,7 @@ function convertToHTML(data) {
                             <option value="R">R</option>
                         </select>
                         <br>
-                        <label class="form-label" for="edit-movie-genre">Genre: </label>
+                        <label class="form-label text-white" for="edit-movie-genre">Genre: </label>
                         <select class="form-select w-50" name="edit-movie-genre" id="edit-movie-genre">
                             <option>Select genre</option>
                             <option value="Action">Action</option>
@@ -234,6 +233,7 @@ btn.on("click", getMovieFunction);
 //Start of post functionality
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
+
     const postMovieFunction = () => {
         fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
             .then(result => result.json())
@@ -246,6 +246,7 @@ btnToPost.addEventListener("click", (e) => {
         })
             .catch(err => console.log("There has been an error: " + err));
     }
+
     let postMovieTitle = document.getElementById("add-movie-title");
     let postMovieDirector = document.getElementById("add-movie-director");
     let postMovieRating = document.getElementById("add-movie-rating");
@@ -257,6 +258,7 @@ btnToPost.addEventListener("click", (e) => {
         "genre": postMovieGenre.value,
         "rating": postMovieRating.value
     }
+
     let postMovieObject = {
         method: "POST",
         headers: {
