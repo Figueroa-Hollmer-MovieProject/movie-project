@@ -122,7 +122,7 @@ const displayMovies = () => {
             }
             // End of favoriting functionality
 
-            // Start of "Sort by" filter functionality
+            // Start of "Sort by Genre" filter functionality
             const sortBy = document.getElementById("movie-filter-genre");
             sortBy.addEventListener("change", (e) => {
                 let array = [];
@@ -148,7 +148,25 @@ const displayMovies = () => {
                 let searchingArr = [];
                 searchingArr = data.filter((n) => n.title.toLowerCase().includes(sortByNameField.value));
                 movies.innerHTML = convertToHTML(searchingArr);
-            })
+            });
+
+            // Start of sort by rating
+            const sortByRating = document.getElementById("movie-filter-rating");
+            sortByRating.addEventListener("change", (e) => {
+               let ratingArray = [];
+               if (sortByRating.value === "none") {
+                   ratingArray = data;
+               } else {
+                   ratingArray = data.filter((n) => {
+                       return n.rating.includes(`${sortByRating.value}`);
+                   });
+               }
+                const displaySortedRatedMovies = (arr) => {
+                    let sortedRatingMovies = convertToHTML(arr);
+                    movies.innerHTML = sortedRatingMovies;
+                }
+                displaySortedRatedMovies(ratingArray);
+            });
 
 
         })

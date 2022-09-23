@@ -37,9 +37,9 @@
             </div>
         </div>
     </nav>
-    <!--MAIN CONTENT (MOVIES)-->
-    <main id="movies-container">
-        <div id="movie-filter-menu">
+
+    <section id="movie-filter-menu">
+        <div>
             <label for="movie-filter-genre" class="text-white">Sort By Genre</label>
             <select id="movie-filter-genre" name="movie-filter-genre" class="form-select" style="width: 15%;">
                 <option value="none">Filter by Genre</option>
@@ -51,6 +51,19 @@
                 <option value="romance">Romance</option>
             </select>
         </div>
+        <div>
+            <label for="movie-filter-rating" class="text-white">Sort By Rating</label>
+            <select id="movie-filter-rating" name="movie-filter-rating" class="form-select" style="width: 15%;">
+                <option value="none">Filter by Rating</option>
+                <option value="G">G</option>
+                <option value="PG">PG</option>
+                <option value="PG-13">PG-13</option>
+                <option value="R">R</option>
+            </select>
+        </div>
+    </section>
+    <!--MAIN CONTENT (MOVIES)-->
+    <main id="movies-container">
         <div>
             <div>
                 <div id="loading"></div>
