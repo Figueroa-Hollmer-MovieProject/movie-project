@@ -52,6 +52,7 @@ const displayMovies = (filter, newArray) => {
             let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
+                    let currentID = button.parentElement.parentElement.children[0].innerHTML;
                     //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
                         fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
@@ -67,7 +68,7 @@ const displayMovies = (filter, newArray) => {
                         "rating": button.parentElement.children[8].value,
                         "genre": button.parentElement.children[11].value
                     }
-                    const patchMovieObject = {
+                    let patchMovieObject = {
                         method: "PATCH",
                         headers: {
                             "Content-Type": "application/json"
@@ -75,7 +76,22 @@ const displayMovies = (filter, newArray) => {
                         //    Hard coding in a post right now, later this will be a user input field.
                         body: JSON.stringify(userInputPatchValue)
                     }
-                    patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
+
+                    let title = button.parentElement.children[2].value;
+                    fetch(`https://www.omdbapi.com?t=${title}&apikey=thewdb`)
+                        .then(resp => resp.json())
+                        .then(data => {
+                            userInputPatchValue.poster = data.Poster;
+                            patchMovieObject = {
+                                method: "PATCH",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify(userInputPatchValue)
+                            }
+                            patchMovieFunction(currentID);
+                        })
+                        .catch(err => console.log(err))
                 });
             }
             // End of for loop to confirm edit button event listeners
