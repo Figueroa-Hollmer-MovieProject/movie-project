@@ -19,7 +19,7 @@ const getMovieObject = {
 const displayMovies = (filter, newArray) => {
     // Display loading animation while we wait for promise.
     displayLoading();
-    fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
+    fetch("https://boggy-important-insect.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
         .then(data => {
             hideLoading();
@@ -56,7 +56,7 @@ const displayMovies = (filter, newArray) => {
                 button.addEventListener("click", () => {
                     //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
-                        fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
+                        fetch(`https://boggy-important-insect.glitch.me/movies${id}`, patchMovieObject)
                             .then(result => result.json()).then(data => {
                             displayMovies();
                             return console.log(data);
@@ -90,7 +90,7 @@ const displayMovies = (filter, newArray) => {
                     let currentBtnId = button.parentElement.parentElement.children[0].innerHTML;
                     console.log(currentBtnId);
                     const deleteMovieFunction = (id) => {
-                        fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, deleteMovieObject)
+                        fetch(`https://boggy-important-insect.glitch.me/movies${id}`, deleteMovieObject)
                             .then(resp => resp.json())
                             .then(data => {
                                 displayMovies();
@@ -263,7 +263,7 @@ btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
 
     const postMovieFunction = () => {
-        fetch(`https://vast-marvelous-course.glitch.me/movies`, postMovieObject)
+        fetch(`https://boggy-important-insect.glitch.me/movies`, postMovieObject)
             .then(result => result.json())
             .then(data => {
                 displayMovies();
