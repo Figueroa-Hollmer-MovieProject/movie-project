@@ -114,17 +114,37 @@ const displayMovies = (filter, newArray) => {
             for (let i = 0; i < data.length; i++) {
                 favoriteButtons[i].addEventListener("click", (e) => {
                     e.preventDefault();
+
+                    let currentID = data[i].id
+
                     if (data[i].favorited === true) {
-                        favoriteButtons[i].style.backgroundColor = "white"
-                        console.log("now it's white")
                         data[i].favorited = false;
-                        console.log(data[i])
                     } else {
-                        favoriteButtons[i].style.backgroundColor = "yellow";
-                        console.log("now it's yellow")
                         data[i].favorited = true;
-                        console.log(data[i])
                     }
+
+
+                    const patchMovieFunction = (id) => {
+                        fetch(`https://vast-marvelous-course.glitch.me/movies/${id}`, patchMovieObject)
+                            .then(result => result.json()).then(data => {
+                            displayMovies();
+                            return console.log(data);
+                        })
+                            .catch(err => console.log("There has been an error: " + err));
+                    }
+                    const userInputPatchValue = {
+                        "favorited": data[i].favorited
+                    }
+                    const patchMovieObject = {
+                        method: "PATCH",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        //    Hard coding in a post right now, later this will be a user input field.
+                        body: JSON.stringify(userInputPatchValue)
+                    }
+
+                    patchMovieFunction(currentID);
                 });
             }
             // End of favoriting functionality
