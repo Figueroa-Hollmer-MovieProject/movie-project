@@ -216,7 +216,7 @@ const displayLoading = () => {
     loader.classList.add("display");
     setTimeout(() => {
         loader.classList.remove("display");
-    }, 10000);
+    }, 60000);
 }
 
 const hideLoading = () => {

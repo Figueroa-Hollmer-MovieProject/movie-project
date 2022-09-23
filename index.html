@@ -31,7 +31,7 @@
                     </li>
                 </ul>
                 <form class="d-flex" role="search">
-                    <input class="form-control me-2" type="search" placeholder="Search Title:" aria-label="Search" id="search-by-name">
+                    <input class="form-control me-2" type="search" placeholder="Search Title" aria-label="Search" id="search-by-name">
                     <button class="btn btn-outline-light" type="submit">Search</button>
                 </form>
             </div>
@@ -40,7 +40,7 @@
     <!--MAIN CONTENT (MOVIES)-->
     <main id="movies-container">
         <div id="movie-filter-menu">
-            <label for="movie-filter-genre">Sort By Genre</label>
+            <label for="movie-filter-genre" class="text-white">Sort By Genre</label>
             <select id="movie-filter-genre" name="movie-filter-genre" class="form-select" style="width: 15%;">
                 <option value="none">Filter by Genre</option>
                 <option value="horror">Horror</option>
@@ -57,19 +57,22 @@
                 <div id="movies"></div>
             </div>
         </div>
+        <div class="bg"></div>
+        <div class="bg bg2"></div>
+        <div class="bg bg3"></div>
     </main>
     <!--FOOTER (ADD MOVIE SECTION)-->
     <footer>
         <hr style="width: 80%; margin-left: 7em;"/>
-        <h2 style="text-align: center;">Can't find a movie you like? Just add your own here!</h2>
+        <h2 class="text-white" style="text-align: center;">Can't find a movie you like? Just add your own here!</h2>
         <form id="addMoviesForm" class="movie-form">
-            <label class="form-label" for="add-movie-title">Title: </label>
+            <label class="form-label text-white" for="add-movie-title">Title: </label>
             <input class="form-control w-50" name="add-movie-title" id="add-movie-title" type="text" placeholder="Title">
             <br>
-            <label class="form-label" for="add-movie-director">Director: </label>
+            <label class="form-label text-white" for="add-movie-director">Director: </label>
             <input class="form-control w-50" name="add-movie-director" id="add-movie-director" type="text" placeholder="Director">
             <br>
-            <label class="form-label" for="add-movie-rating">Rating: </label>
+            <label class="form-label text-white" for="add-movie-rating">Rating: </label>
             <select class="form-select w-50" name="add-movie-rating" id="add-movie-rating">
                 <option>Select movie rating</option>
                 <option value="G">G</option>
@@ -78,7 +81,7 @@
                 <option value="R">R</option>
             </select>
             <br>
-            <label class="form-label" for="add-movie-genre">Genre: </label>
+            <label class="form-label text-white" for="add-movie-genre">Genre: </label>
             <select class="form-select w-50" name="add-movie-genre" id="add-movie-genre">
                 <option>Select movie genre</option>
                 <option value="Action">Action</option>
@@ -93,7 +96,7 @@
             <button class="btn btn-success" type="button" id="btn-to-post">Post</button>
         </form>
         <hr style="width: 80%; margin-left: 7em;"/>
-        <p id="copyright">©Copyright. All rights reserved.</p>
+        <p id="copyright" class="text-white">©Copyright. All rights reserved.</p>
     </footer>
 
 
