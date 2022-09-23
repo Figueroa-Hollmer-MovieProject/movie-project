@@ -1,22 +1,5 @@
 "use strict";
 
-//Start of getting the images for the cards
-const getImages = () => {
-    let title = "John Wick"
-    fetch(`https://www.omdbapi.com?t=${title}&apikey=thewdb`)
-        .then(resp => resp.json())
-        .then(data => {
-            console.log(data)
-        })
-        .catch(err => console.log(err))
-        // .then(data => console.log(data))
-//    http://www.omdbapi.com/?apikey=${MOVIE_KEY}&t=Up
-//     http://www.omdbapi.com?s=apikey=${MOVIE_KEY}&t=Up
-}
-
-//End of getting the images for the cards
-
-
 // Start of GET Function
 const getMovieFunction = () => {
     fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
@@ -158,7 +141,7 @@ const displayMovies = () => {
                    ratingArray = data;
                } else {
                    ratingArray = data.filter((n) => {
-                       return n.rating.includes(`${sortByRating.value}`);
+                       return n.rating === sortByRating.value;
                    });
                }
                 const displaySortedRatedMovies = (arr) => {
@@ -167,8 +150,6 @@ const displayMovies = () => {
                 }
                 displaySortedRatedMovies(ratingArray);
             });
-
-
         })
         .catch(err => console.log(err));
 }
@@ -303,6 +284,5 @@ btnToPost.addEventListener("click", (e) => {
 //End of post functionality
 //Display on page load
 displayMovies();
-getImages();
 
 
