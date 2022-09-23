@@ -261,7 +261,6 @@ btnToPost.addEventListener("click", (e) => {
             postMovieDirector.value = "";
             postMovieGenre.value = "";
             postMovieRating.value = "";
-            return console.log(data);
         })
             .catch(err => console.log("There has been an error: " + err));
     }
@@ -283,6 +282,17 @@ btnToPost.addEventListener("click", (e) => {
         },
         body: JSON.stringify(userEnteredMovie)
     }
+
+    let title = userEnteredMovie.title;
+    fetch(`https://www.omdbapi.com?t=${title}&apikey=thewdb`)
+        .then(resp => resp.json())
+        .then(data => {
+            userEnteredMovie.poster = data.Poster;
+        })
+        .catch(err => console.log(err))
+    console.log(userEnteredMovie);
+
+
     postMovieFunction();
 });
 //End of post functionality
