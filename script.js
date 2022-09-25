@@ -1,33 +1,34 @@
 "use strict";
 
-// Start of GET Function
-const getMovieFunction = () => {
-    fetch("https://vast-marvelous-course.glitch.me/movies", getMovieObject)
-        .then(resp => resp.json())
-        .then(data => console.log(data))
-        .catch(err => console.log(err));
-}
-
-const getMovieObject = {
-    method: "GET",
-    headers: {
-        "Content-Type": "application/json"
-    }
-};
-// End of GET Function
-
+// Function that displays movies
 const displayMovies = (filter, newArray) => {
+    const getMovieObject = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
     // Display loading animation while waiting for promise.
     displayLoading();
     fetch("https://boggy-important-insect.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
         .then(data => {
+            // Loading animation is hidden when promise is fulfilled.
             hideLoading();
+
+            // Initializing HTML selectors.
+            const editButtons = document.getElementsByClassName("edit-btn");
+            const confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
+            const deleteButtons = document.getElementsByClassName("delete-btn");
+            const favoriteButtons = document.getElementsByClassName("star");
+            const sortBy = document.getElementById("movie-filter-genre");
+            const sortByNameField = document.getElementById("search-by-name");
+            const sortByFavorite = document.getElementById("movie-filter-favorited");
+            const sortByRating = document.getElementById("movie-filter-rating");
 
             // Sort by options
             if (filter === undefined && newArray === undefined) {
                 let moviesToDisplay = convertToHTML(data);
-                console.log(data);
                 movies.innerHTML = moviesToDisplay;
             } else if (filter === "genre") {
                 movies.innerHTML = convertToHTML(newArray);
@@ -38,18 +39,16 @@ const displayMovies = (filter, newArray) => {
                 for (let i = 0; i < favoriteButtons.length; i++) {
                     favoriteButtons[i].style.backgroundColor = "yellow";
                 }
-            }
 
+            }
             // Toggles edit form on movie when user clicks blue "Edit Movie" button.
-            let editButtons = document.getElementsByClassName("edit-btn");
             for (let button of editButtons) {
                 button.addEventListener("click", () => {
                     button.parentElement.nextElementSibling.classList.toggle("hidden");
                 });
-            }
 
+            }
             // Start of for loop to confirm edit button event listeners
-            let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
                     const patchMovieFunction = (id) => {
@@ -75,10 +74,9 @@ const displayMovies = (filter, newArray) => {
                     }
                     patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
                 });
-            }
 
+            }
             // Deletes movie when user clicks red "Delete Movie" button.
-            let deleteButtons = document.getElementsByClassName("delete-btn");
             for (let button of deleteButtons) {
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
@@ -99,10 +97,9 @@ const displayMovies = (filter, newArray) => {
                     }
                     deleteMovieFunction(currentBtnId);
                 });
-            }
 
+            }
             // Toggles star color between white and yellow when user clicks on it.
-            let favoriteButtons = document.getElementsByClassName("star");
             for (let i = 0; i < data.length; i++) {
                 favoriteButtons[i].addEventListener("click", (e) => {
                     e.preventDefault();
@@ -114,37 +111,34 @@ const displayMovies = (filter, newArray) => {
                         data[i].favorited = true;
                     }
                 });
-            }
 
-            // const sortByFavorite = document.getElementById("movie-filter-favorited");
-            // sortByFavorite.addEventListener("change", (e) => {
-            //    e.preventDefault();
-            //    if (sortByFavorite.value === "true") {
-            //        let favoritedArray = data.filter((n) => {
-            //             return n.favorited === true;
-            //         });
-            //         displayMovies("favorited", favoritedArray);
-            //    } else {
-            //        displayMovies();
-            //    }
-            // });
+            }
+            sortByFavorite.addEventListener("change", (e) => {
+               e.preventDefault();
+               if (sortByFavorite.value === "true") {
+                   let favoritedArray = data.filter((n) => {
+                        return n.favorited === true;
+                    });
+                    displayMovies("favorited", favoritedArray);
+               } else {
+                   displayMovies();
+               }
+            });
 
             // Filters movies by user's choice of genre.
-            const sortBy = document.getElementById("movie-filter-genre");
             sortBy.addEventListener("change", (e) => {
-                let array = [];
+                let genreArray = [];
                 if (sortBy.value === "none") {
-                    array = data;
+                    genreArray = data;
                 } else {
-                    array = data.filter((n) => {
+                    genreArray = data.filter((n) => {
                         return n.genre.toLowerCase().includes(`${sortBy.value}`);
                     });
                 }
-                displayMovies("genre", array);
+                displayMovies("genre", genreArray);
             });
 
             // Displays movies containing characters as the user is typing in the search bar.
-            let sortByNameField = document.getElementById("search-by-name");
             sortByNameField.addEventListener("keyup", (e) => {
                 e.preventDefault();
                 let searchingArr = [];
@@ -153,7 +147,6 @@ const displayMovies = (filter, newArray) => {
             });
 
             // Filters movies by user's choice of rating.
-            const sortByRating = document.getElementById("movie-filter-rating");
             sortByRating.addEventListener("change", (e) => {
                let ratingArray = [];
                if (sortByRating.value === "none") {
@@ -169,8 +162,8 @@ const displayMovies = (filter, newArray) => {
         .catch(err => console.log(err));
 }
 
-//Start of convert to html function
-function convertToHTML(data) {
+// Function that generates movie card for each individual movie.
+const convertToHTML = (data) => {
     let html = "";
     for (let i = 0; i < data.length; i++) {
         html += `<div class="card me-5 mb-5 bg-dark" style="width: 301px;">
@@ -185,7 +178,7 @@ function convertToHTML(data) {
                         <button class="delete-btn btn btn-sm bg-danger text-white" type="button">Delete Movie</button>
                         <i class="fa-regular fa-star star"></i>
                     </div>
-<!--                    Start of edit form                  -->
+                    <!--Start of edit form (shown when toggled)-->
                     <form class="edit-form hidden">
                         <p>Edit This Movie</p>
                         <label class="form-label text-white" for="edit-movie-title">Title: </label>
@@ -224,8 +217,7 @@ function convertToHTML(data) {
     return html;
 }
 
-//End of convert to html function
-
+// Function that displays loading animation
 const displayLoading = () => {
     loader.classList.add("display");
     setTimeout(() => {
@@ -233,20 +225,20 @@ const displayLoading = () => {
     }, 60000);
 }
 
+// Function that hides loading animation when called.
 const hideLoading = () => {
     loader.classList.remove("display");
 }
 
+// Initializing HTML Selectors
 const loader = document.getElementById("loading");
-const btn = $("#btn-to-show");
-const btnToDel = document.getElementById("btn-to-delete");
 const btnToPost = document.getElementById("btn-to-post");
-const btnToPatch = document.getElementById("btn-to-patch");
 const movies = document.getElementById("movies");
 
-btn.on("click", getMovieFunction);
+// Displays current movies on page load.
+displayMovies();
 
-//Start of post functionality
+// Event listener that sends POST request when user submits "Add a movie" form.
 btnToPost.addEventListener("click", (e) => {
     e.preventDefault();
 
@@ -263,10 +255,12 @@ btnToPost.addEventListener("click", (e) => {
             .catch(err => console.log("There has been an error: " + err));
     }
 
+    // Initializing HTML Selectors
     let postMovieTitle = document.getElementById("add-movie-title");
     let postMovieDirector = document.getElementById("add-movie-director");
     let postMovieRating = document.getElementById("add-movie-rating");
     let postMovieGenre = document.getElementById("add-movie-genre");
+
 
     const userEnteredMovie = {
         "title": postMovieTitle.value,
@@ -299,6 +293,4 @@ btnToPost.addEventListener("click", (e) => {
         })
         .catch(err => console.log(err))
 });
-//End of post functionality
-//Display on page load
-displayMovies();
+
