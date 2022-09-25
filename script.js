@@ -17,14 +17,12 @@ const getMovieObject = {
 // End of GET Function
 
 const displayMovies = (filter, newArray) => {
-    // Display loading animation while we wait for promise.
+    // Display loading animation while waiting for promise.
     displayLoading();
     fetch("https://boggy-important-insect.glitch.me/movies", getMovieObject)
         .then(resp => resp.json())
         .then(data => {
             hideLoading();
-
-            let favoriteButtons = document.getElementsByClassName("star");
 
             // Sort by options
             if (filter === undefined && newArray === undefined) {
@@ -42,7 +40,7 @@ const displayMovies = (filter, newArray) => {
                 }
             }
 
-            //This is the event listener to edit movies
+            // Toggles edit form on movie when user clicks blue "Edit Movie" button.
             let editButtons = document.getElementsByClassName("edit-btn");
             for (let button of editButtons) {
                 button.addEventListener("click", () => {
@@ -54,12 +52,11 @@ const displayMovies = (filter, newArray) => {
             let confirmEditButtons = document.getElementsByClassName("btn-to-confirm-edit");
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
-                    //  INSIDE HERE IS GOING TO BE THE PATCH FUNCTION
                     const patchMovieFunction = (id) => {
-                        fetch(`https://boggy-important-insect.glitch.me/movies${id}`, patchMovieObject)
-                            .then(result => result.json()).then(data => {
-                            displayMovies();
-                            return console.log(data);
+                        fetch(`https://boggy-important-insect.glitch.me/movies/${id}`, patchMovieObject)
+                            .then(result => result.json())
+                            .then(data => {
+                                displayMovies();
                         })
                             .catch(err => console.log("There has been an error: " + err));
                     }
@@ -74,27 +71,23 @@ const displayMovies = (filter, newArray) => {
                         headers: {
                             "Content-Type": "application/json"
                         },
-                        //    Hard coding in a post right now, later this will be a user input field.
                         body: JSON.stringify(userInputPatchValue)
                     }
                     patchMovieFunction(button.parentElement.parentElement.children[0].innerHTML);
                 });
             }
-            // End of for loop to confirm edit button event listeners
 
-            // Start of delete functionality
+            // Deletes movie when user clicks red "Delete Movie" button.
             let deleteButtons = document.getElementsByClassName("delete-btn");
             for (let button of deleteButtons) {
                 button.addEventListener("click", (e) => {
                     e.preventDefault();
                     let currentBtnId = button.parentElement.parentElement.children[0].innerHTML;
-                    console.log(currentBtnId);
                     const deleteMovieFunction = (id) => {
-                        fetch(`https://boggy-important-insect.glitch.me/movies${id}`, deleteMovieObject)
+                        fetch(`https://boggy-important-insect.glitch.me/movies/${id}`, deleteMovieObject)
                             .then(resp => resp.json())
                             .then(data => {
                                 displayMovies();
-                                return console.log(data);
                             })
                             .catch(err => console.log(err));
                     }
@@ -107,41 +100,36 @@ const displayMovies = (filter, newArray) => {
                     deleteMovieFunction(currentBtnId);
                 });
             }
-            // End of delete functionality
 
-            // Start of favoriting functionality
-            // let favoriteButtons = document.getElementsByClassName("star");
+            // Toggles star color between white and yellow when user clicks on it.
+            let favoriteButtons = document.getElementsByClassName("star");
             for (let i = 0; i < data.length; i++) {
                 favoriteButtons[i].addEventListener("click", (e) => {
                     e.preventDefault();
                     if (data[i].favorited === true) {
                         favoriteButtons[i].style.backgroundColor = "white"
-                        console.log("now it's white")
                         data[i].favorited = false;
-                        console.log(data[i])
                     } else {
                         favoriteButtons[i].style.backgroundColor = "yellow";
-                        console.log("now it's yellow")
                         data[i].favorited = true;
-                        console.log(data[i])
                     }
                 });
             }
-            // End of favoriting functionality
-            const sortByFavorite = document.getElementById("movie-filter-favorited");
-            sortByFavorite.addEventListener("change", (e) => {
-               e.preventDefault();
-               if (sortByFavorite.value === "true") {
-                   let favoritedArray = data.filter((n) => {
-                        return n.favorited === true;
-                    });
-                    displayMovies("favorited", favoritedArray);
-               } else {
-                   displayMovies();
-               }
-            });
 
-            // Start of "Sort by Genre" filter functionality
+            // const sortByFavorite = document.getElementById("movie-filter-favorited");
+            // sortByFavorite.addEventListener("change", (e) => {
+            //    e.preventDefault();
+            //    if (sortByFavorite.value === "true") {
+            //        let favoritedArray = data.filter((n) => {
+            //             return n.favorited === true;
+            //         });
+            //         displayMovies("favorited", favoritedArray);
+            //    } else {
+            //        displayMovies();
+            //    }
+            // });
+
+            // Filters movies by user's choice of genre.
             const sortBy = document.getElementById("movie-filter-genre");
             sortBy.addEventListener("change", (e) => {
                 let array = [];
@@ -155,7 +143,7 @@ const displayMovies = (filter, newArray) => {
                 displayMovies("genre", array);
             });
 
-            //Start of sort by name function
+            // Displays movies containing characters as the user is typing in the search bar.
             let sortByNameField = document.getElementById("search-by-name");
             sortByNameField.addEventListener("keyup", (e) => {
                 e.preventDefault();
@@ -164,7 +152,7 @@ const displayMovies = (filter, newArray) => {
                 movies.innerHTML = convertToHTML(searchingArr);
             });
 
-            // Start of sort by rating
+            // Filters movies by user's choice of rating.
             const sortByRating = document.getElementById("movie-filter-rating");
             sortByRating.addEventListener("change", (e) => {
                let ratingArray = [];
