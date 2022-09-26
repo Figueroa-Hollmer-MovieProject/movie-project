@@ -48,7 +48,7 @@ const displayMovies = (filter, newArray) => {
                 });
 
             }
-            // Start of for loop to confirm edit button event listeners
+            // Sends PATCH request when user clicks green "Edit" button to confirm movie edit.
             for (let button of confirmEditButtons) {
                 button.addEventListener("click", () => {
                     const patchMovieFunction = (id) => {
@@ -208,7 +208,7 @@ const convertToHTML = (data) => {
                             <option value="Horror">Horror</option>
                         </select>
                         <br>
-                        <button type="button" class="btn-to-confirm-edit btn btn-sm btn-primary">Edit</button>
+                        <button type="button" class="btn-to-confirm-edit btn btn-sm btn-success">Edit</button>
                     </form>  
 <!--                      End of edit form                   -->
                 </div>`
